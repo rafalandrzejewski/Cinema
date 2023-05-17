@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Cinema.Models;
 
 namespace Cinema.Data
 {
@@ -9,5 +10,7 @@ namespace Cinema.Data
             : base(options)
         {
         }
+        public DbSet<Cinema.Models.Movie>? Movie { get; set; }
+        public DbSet<Cinema.Models.Seance>? Seance { get; set; }
     }
 }
