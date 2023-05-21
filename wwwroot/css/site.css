@@ -13,6 +13,22 @@ html {
   min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
+body,html {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+.content {
+    background-image: url(/img/background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: auto;
+    height: 88%;
+}
+main{
+    width:100%;
+}
+table, th, td {
+    color: white;
 }

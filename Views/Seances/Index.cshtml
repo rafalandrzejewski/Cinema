@@ -7,7 +7,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Dodaj nowy seans</a>
 </p>
 <table class="table">
     <thead>
@@ -16,44 +16,34 @@
                 @Html.DisplayNameFor(model => model.Date)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MaxSeatCount)
+                Ilość wolnych miejsc:
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FreeSeatCount)
+                @Html.DisplayNameFor(model => model.Movie.Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SeatsJsonObject)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Movie)
+                
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaxSeatCount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FreeSeatCount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SeatsJsonObject)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Movie.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaxSeatCount) / @Html.DisplayFor(modelItem => item.FreeSeatCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Movie.Title)
+                </td>
+                <td>
+                    <a asp-controller="Reservations" asp-action="Create">Zarezerwój</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

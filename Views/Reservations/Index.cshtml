@@ -5,21 +5,18 @@
 }
 
 <h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<a asp-action="Create">Dodaj nowy rezerwacje</a>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Date)
+                Tytuł filmu:
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Seance)
+                Data seansu:
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ApplicationUser)
+                Imię i nazwisko:
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.SeatNumbers)
@@ -31,13 +28,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Date)
+                @Html.DisplayFor(modelItem => item.Seance.Movie.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Seance.Id)
+                @Html.DisplayFor(modelItem => item.Seance.Date)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
+                    @Html.DisplayFor(modelItem => item.ApplicationUser.Firstname) @Html.DisplayFor(modelItem => item.ApplicationUser.Lastname)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SeatNumbers)

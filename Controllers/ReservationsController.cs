@@ -83,13 +83,11 @@ namespace Cinema.Controllers
                     if (Int32.TryParse(seat, out int seatNumber) && seats.Any(x => x.Id == seatNumber && x.IsBooked == false))
                         seats.Where(x => x.Id == seatNumber).FirstOrDefault().IsBooked = true;
                     else
-                        return NotFound();//zrobic blad
+                        return Problem("Błędnie wybrane miejsca!");
                 }
                 seance.SeatsJsonObject = JsonConvert.SerializeObject(seats);
-                _context.Update(seance);
-
-                await _context.SaveChangesAsync();
                 _context.Add(reservation);
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -197,7 +195,7 @@ namespace Cinema.Controllers
                 var reservationSeats = reservation.SeatNumbers.Split(",").ToList();
                 foreach (var seat in seats)
                 {
-                    if(reservationSeats.Contains(seat.Id.ToString()))
+                    if (reservationSeats.Contains(seat.Id.ToString()))
                         seat.IsBooked = false;
                 }
                 seance.SeatsJsonObject = JsonConvert.SerializeObject(seats);
