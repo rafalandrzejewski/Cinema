@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Cinema.Models.Reservation>
+﻿@model IEnumerable<Cinema.Models.Seance>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,13 +16,16 @@
                 @Html.DisplayNameFor(model => model.Date)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Seance)
+                @Html.DisplayNameFor(model => model.MaxSeatCount)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ApplicationUser)
+                @Html.DisplayNameFor(model => model.FreeSeatCount)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SeatNumbers)
+                @Html.DisplayNameFor(model => model.SeatsJsonObject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movie)
             </th>
             <th></th>
         </tr>
@@ -34,13 +37,16 @@
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Seance.Id)
+                @Html.DisplayFor(modelItem => item.MaxSeatCount)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
+                @Html.DisplayFor(modelItem => item.FreeSeatCount)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SeatNumbers)
+                @Html.DisplayFor(modelItem => item.SeatsJsonObject)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Movie.Id)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

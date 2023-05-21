@@ -1,0 +1,52 @@
+﻿@model Cinema.Models.Seance
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Seance</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaxSeatCount" class="control-label"></label>
+                <input asp-for="MaxSeatCount" class="form-control" />
+                <span asp-validation-for="MaxSeatCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FreeSeatCount" class="control-label"></label>
+                <input asp-for="FreeSeatCount" class="form-control" />
+                <span asp-validation-for="FreeSeatCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SeatsJsonObject" class="control-label"></label>
+                <input asp-for="SeatsJsonObject" class="form-control" />
+                <span asp-validation-for="SeatsJsonObject" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MovieId" class="control-label"></label>
+                <select asp-for="MovieId" class ="form-control" asp-items="ViewBag.MovieId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

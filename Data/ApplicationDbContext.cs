@@ -11,6 +11,7 @@ namespace Cinema.Data
         {
         }
         public DbSet<Cinema.Models.Movie>? Movie { get; set; }
+        public DbSet<Cinema.Models.News>? News { get; set; }
         public DbSet<Cinema.Models.Seance>? Seance { get; set; }
         public DbSet<Cinema.Models.Reservation>? Reservation { get; set; }
     }
