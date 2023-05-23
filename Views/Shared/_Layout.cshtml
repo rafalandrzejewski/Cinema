@@ -1,9 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Cinema</title>
+    <title>@ViewData["Title"] - SuperKino</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Cinema.styles.css" asp-append-version="true" />
@@ -12,25 +16,28 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-danger border-bottom box-shadow">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Cinema</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SuperKino</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Movies" asp-action="Index">Movie</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Reservations" asp-action="Index">Reservation</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Seances" asp-action="Index">Seance</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="News" asp-action="Index">News</a>
-                        </li>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                                <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Movies" asp-action="Index">Filmy</a>
+                            </li>
+                                <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Reservations" asp-action="Index">Rezerwacje</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Seances" asp-action="Index">Seance</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="News" asp-action="Index">News</a>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -39,7 +46,7 @@
     </header>
     <div class="content">
     <div class="container">
-        <main role="main" class="text-light">
+        <main role="main" class="text-light pt-3">
             @RenderBody()
         </main>
     </div>
@@ -47,7 +54,7 @@
 
     <footer class="border-top footer text-muted bg-danger">
         <div class="container text-light">
-            &copy; 2023 - Cinema
+            &copy; 2023 - SuperKino
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

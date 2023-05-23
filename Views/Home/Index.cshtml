@@ -2,7 +2,21 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center pb-3">
+    <h1 class="display-4">Witamy w SuperKino!</h1>
+    <p>Nasze kino ma wiele ciekawych ofert.</p>
 </div>
+@model IEnumerable<Cinema.Models.News>
+
+        @foreach (var item in Model)
+        {
+                <div class="col-md-12">
+          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+                  <h3 class="mb-1">@Html.DisplayFor(modelItem => item.Title)</h3>
+                  <div class="mb-2 text-body-secondary">@Html.DisplayFor(modelItem => item.Date)</div>
+                  <p class="card-text mb-auto">@Html.DisplayFor(modelItem => item.Description)</p>
+            </div>
+          </div>
+        </div>
+        }

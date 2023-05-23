@@ -32,3 +32,11 @@ main{
 table, th, td {
     color: white;
 }
+
+.form-floating{
+    color:black;
+    padding:5px;
+}
+button{
+    margin-top:5px;
+}
