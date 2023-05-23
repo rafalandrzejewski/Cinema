@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Cinema.Models.Reservation>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Tytuł filmu:
+            </th>
+            <th>
+                Data seansu:
+            </th>
+            <th>
+                Imię i nazwisko:
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SeatNumbers)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Seance.Movie.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Seance.Date)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.ApplicationUser.Firstname) @Html.DisplayFor(modelItem => item.ApplicationUser.Lastname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeatNumbers)
+            </td>
+            <td>|
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

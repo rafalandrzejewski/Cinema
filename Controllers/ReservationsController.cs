@@ -8,22 +8,31 @@ using Microsoft.EntityFrameworkCore;
 using Cinema.Data;
 using Cinema.Models;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Identity;
 
 namespace Cinema.Controllers
 {
     public class ReservationsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ReservationsController(ApplicationDbContext context)
+        public ReservationsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Reservations
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Reservation.Include(r => r.ApplicationUser).Include(r => r.Seance);
+            return View(await applicationDbContext.ToListAsync());
+        }
+        public async Task<IActionResult> IndexUser()
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var applicationDbContext = _context.Reservation.Include(r => r.ApplicationUser).Include(r => r.Seance).Where(x => x.ApplicationUserId == user.Id);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -205,7 +214,10 @@ namespace Cinema.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if (User.IsInRole("SuperAdmin"))
+                return RedirectToAction(nameof(Index));
+            else
+                return RedirectToAction(nameof(IndexUser));
         }
 
         private bool ReservationExists(int id)

@@ -25,18 +25,30 @@
                     <ul class="navbar-nav flex-grow-1">
                         @if (SignInManager.IsSignedIn(User))
                         {
-                                <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Movies" asp-action="Index">Filmy</a>
-                            </li>
-                                <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Reservations" asp-action="Index">Rezerwacje</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Seances" asp-action="Index">Seance</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="News" asp-action="Index">News</a>
-                            </li>
+                            if (User.IsInRole("SuperAdmin"))
+                            {
+                                        <li class="nav-item">
+                                        <a class="nav-link text-light" asp-area="" asp-controller="Movies" asp-action="Index">Filmy</a>
+                                    </li>
+                                        <li class="nav-item">
+                                        <a class="nav-link text-light" asp-area="" asp-controller="Reservations" asp-action="Index">Rezerwacje</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-light" asp-area="" asp-controller="Seances" asp-action="Index">Seance</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-light" asp-area="" asp-controller="News" asp-action="Index">News</a>
+                                </li>
+                            }
+                            else
+                            {
+                                        <li class="nav-item">
+                                                <a class="nav-link text-light" asp-area="" asp-controller="Seances" asp-action="IndexUser">Seance</a>
+                                            </li>
+                                        <li class="nav-item">
+                                        <a class="nav-link text-light" asp-area="" asp-controller="Reservations" asp-action="IndexUser">Rezerwacje</a>
+                                        </li>
+                            }
                         }
                     </ul>
                     <partial name="_LoginPartial" />

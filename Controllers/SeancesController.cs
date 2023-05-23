@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Cinema.Data;
 using Cinema.Models;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Identity;
 
 namespace Cinema.Controllers
 {
@@ -22,6 +23,20 @@ namespace Cinema.Controllers
 
         // GET: Seances
         public async Task<IActionResult> Index()
+        {
+            var applicationDbContext = _context.Seance.Include(s => s.Movie);
+            var seanceList = await applicationDbContext.ToListAsync();
+            List<Seat> seats = new List<Seat>();
+            foreach (var seance in seanceList)
+            {
+                seats = JsonConvert.DeserializeObject<List<Seat>>(seance.SeatsJsonObject);
+                seance.FreeSeatCount = seats.Where(x => x.IsBooked == false).Count();
+                seance.SeatsJsonObject = null;
+            }
+            return View(await applicationDbContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> IndexUser()
         {
             var applicationDbContext = _context.Seance.Include(s => s.Movie);
             var seanceList = await applicationDbContext.ToListAsync();

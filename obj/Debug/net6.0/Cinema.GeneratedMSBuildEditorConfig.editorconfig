@@ -244,6 +244,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YXRpb25zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Course C\#/Cinema/Cinema/Views/Reservations/IndexUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YXRpb25zXEluZGV4VXNlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Course C\#/Cinema/Cinema/Views/Seances/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VhbmNlc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -262,6 +266,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Course C\#/Cinema/Cinema/Views/Seances/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VhbmNlc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Course C\#/Cinema/Cinema/Views/Seances/IndexUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VhbmNlc1xJbmRleFVzZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Course C\#/Cinema/Cinema/Views/Shared/Error.cshtml]
