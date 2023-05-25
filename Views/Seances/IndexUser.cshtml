@@ -4,7 +4,7 @@
     ViewData["Title"] = "IndexUser";
 }
 
-<h1>Index</h1>
+<h1>Repertuar kina</h1>
 <table class="table">
     <thead>
         <tr>
@@ -37,7 +37,7 @@
                     @Html.DisplayFor(modelItem => item.Movie.Title)
                 </td>
                 <td>
-                    <a asp-controller="Reservations" asp-action="Create">Zarezerwój</a>
+                        <a asp-controller="Reservations" asp-action="Create" asp-route-id="@item.Id">Zarezerwój</a>
                 </td>
             </tr>
         }

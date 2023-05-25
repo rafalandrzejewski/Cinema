@@ -4,8 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-<a asp-action="Create">Dodaj nowy rezerwacje</a>
+<h1>Rezerwacje</h1>
 <table class="table">
     <thead>
         <tr>
@@ -16,7 +15,7 @@
                 Data seansu:
             </th>
             <th>
-                Imię i nazwisko:
+                Nazwa użytkownika:
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.SeatNumbers)
@@ -34,15 +33,14 @@
                 @Html.DisplayFor(modelItem => item.Seance.Date)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.ApplicationUser.Firstname) @Html.DisplayFor(modelItem => item.ApplicationUser.Lastname)
+                    @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SeatNumbers)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Details" asp-route-id="@item.Id">Szczegóły</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
             </td>
         </tr>
 }

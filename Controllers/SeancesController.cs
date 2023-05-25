@@ -75,7 +75,7 @@ namespace Cinema.Controllers
         // GET: Seances/Create
         public IActionResult Create()
         {
-            ViewData["MovieId"] = new SelectList(_context.Movie, "Id", "Id");
+            ViewData["MovieId"] = new SelectList(_context.Movie, "Title", "Title");
             return View();
         }
 
@@ -88,6 +88,7 @@ namespace Cinema.Controllers
         {
             if (ModelState.IsValid)
             {
+                var movie = _context.Movie.FirstOrDefault(x => x.Title == seanceDto.MovieId);
                 List<Seat> seats = new List<Seat>();
                 for (int i = 0; i < seanceDto.MaxSeatCount; i++)
                 {
@@ -99,7 +100,7 @@ namespace Cinema.Controllers
                 }
                 var seance = new Seance
                 {
-                    MovieId=seanceDto.MovieId,
+                    MovieId=movie.Id,
                     Date= seanceDto.Date,
                     MaxSeatCount = seanceDto.MaxSeatCount,
                     FreeSeatCount = seanceDto.MaxSeatCount,

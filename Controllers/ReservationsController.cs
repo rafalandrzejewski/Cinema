@@ -57,11 +57,11 @@ namespace Cinema.Controllers
         }
 
         // GET: Reservations/Create
-        public IActionResult Create()
+        public IActionResult Create(int? id)
         {
             ViewData["ApplicationUserId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "Id");
-            ViewData["SeanceId"] = new SelectList(_context.Seance, "Id", "Id");
-            return View();
+            //ViewData["SeanceId"] = new SelectList(_context.Seance, "Id", "Id");
+            return View(id);
         }
 
         // POST: Reservations/Create
@@ -69,24 +69,24 @@ namespace Cinema.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Date,SeanceId,ApplicationUserId,SeatNumbers")] Reservation reservation)
+        public async Task<IActionResult> Create([Bind("Id,Date,SeanceId,ApplicationUserId,SeatNumbers")] ReservationDto reservationDto)
         {
             if (ModelState.IsValid)
             {
-                if (reservation.SeanceId == null || _context.Seance == null)
+                if (reservationDto.SeanceId == null || _context.Seance == null)
                 {
                     return NotFound();
                 }
 
                 var seance = await _context.Seance
                     .Include(s => s.Movie)
-                    .FirstOrDefaultAsync(m => m.Id == reservation.SeanceId);
+                    .FirstOrDefaultAsync(m => m.Id == reservationDto.SeanceId);
                 if (seance == null)
                 {
                     return NotFound();
                 }
                 var seats = JsonConvert.DeserializeObject<List<Seat>>(seance.SeatsJsonObject);
-                var reservationSeats = reservation.SeatNumbers.Split(",").ToList();
+                var reservationSeats = reservationDto.SeatNumbers.Split(",").ToList();
                 foreach (var seat in reservationSeats)
                 {
                     if (Int32.TryParse(seat, out int seatNumber) && seats.Any(x => x.Id == seatNumber && x.IsBooked == false))
@@ -95,14 +95,27 @@ namespace Cinema.Controllers
                         return Problem("Błędnie wybrane miejsca!");
                 }
                 seance.SeatsJsonObject = JsonConvert.SerializeObject(seats);
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                Reservation reservation= new Reservation()
+                {
+                    Date=DateTime.Now,
+                    ApplicationUser=user,
+                    ApplicationUserId=user.Id,
+                    Seance=seance,
+                    SeanceId=seance.Id,
+                    SeatNumbers=reservationDto.SeatNumbers,
+                };
                 _context.Add(reservation);
 
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(IndexUser));
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "Id", reservation.ApplicationUserId);
-            ViewData["SeanceId"] = new SelectList(_context.Seance, "Id", "Id", reservation.SeanceId);
-            return View(reservation);
+
+            var user2 = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            ViewData["ApplicationUserId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "Id", user2.Id);
+            ViewData["SeanceId"] = new SelectList(_context.Seance, "Id", "Id", reservationDto.SeanceId);
+            return View(reservationDto);
         }
 
         // GET: Reservations/Edit/5
