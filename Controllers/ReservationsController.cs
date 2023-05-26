@@ -71,7 +71,7 @@ namespace Cinema.Controllers
             // Deserialize Seats from the SeatsJsonObject
             var seats = JsonConvert.DeserializeObject<List<Seat>>(seance.SeatsJsonObject);
             // Load the list of Seats into the ViewBag
-            ViewBag.AvailableSeats = seats.Where(s => !s.IsBooked).ToList();
+            ViewBag.AvailableSeats = seats.ToList();
             var reservation = new Reservation { SeanceId = id ?? default(int) };
             return View(reservation);
             return View(id);
