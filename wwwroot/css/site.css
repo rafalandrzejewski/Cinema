@@ -1,5 +1,6 @@
 html {
   font-size: 14px;
+  color: black;
 }
 
 @media (min-width: 768px) {
@@ -30,7 +31,7 @@ main{
     width:100%;
 }
 table, th, td {
-    color: white;
+    color: black;
 }
 
 .form-floating{

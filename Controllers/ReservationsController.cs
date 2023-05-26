@@ -60,7 +60,20 @@ namespace Cinema.Controllers
         public IActionResult Create(int? id)
         {
             ViewData["ApplicationUserId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "Id");
-            //ViewData["SeanceId"] = new SelectList(_context.Seance, "Id", "Id");
+            // Load the Seance and its associated Seats
+            var seance = _context.Seance
+                                 .FirstOrDefault(s => s.Id == id);
+            if (seance == null)
+            {
+                return NotFound();
+            }
+
+            // Deserialize Seats from the SeatsJsonObject
+            var seats = JsonConvert.DeserializeObject<List<Seat>>(seance.SeatsJsonObject);
+            // Load the list of Seats into the ViewBag
+            ViewBag.AvailableSeats = seats.Where(s => !s.IsBooked).ToList();
+            var reservation = new Reservation { SeanceId = id ?? default(int) };
+            return View(reservation);
             return View(id);
         }
 
@@ -69,53 +82,62 @@ namespace Cinema.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Date,SeanceId,ApplicationUserId,SeatNumbers")] ReservationDto reservationDto)
+        public async Task<IActionResult> Create(int seanceId, List<int> selectedSeats)
         {
             if (ModelState.IsValid)
             {
-                if (reservationDto.SeanceId == null || _context.Seance == null)
-                {
-                    return NotFound();
-                }
-
-                var seance = await _context.Seance
-                    .Include(s => s.Movie)
-                    .FirstOrDefaultAsync(m => m.Id == reservationDto.SeanceId);
+                var seance = _context.Seance
+                                     .FirstOrDefault(s => s.Id == seanceId);
                 if (seance == null)
                 {
                     return NotFound();
                 }
-                var seats = JsonConvert.DeserializeObject<List<Seat>>(seance.SeatsJsonObject);
-                var reservationSeats = reservationDto.SeatNumbers.Split(",").ToList();
-                foreach (var seat in reservationSeats)
-                {
-                    if (Int32.TryParse(seat, out int seatNumber) && seats.Any(x => x.Id == seatNumber && x.IsBooked == false))
-                        seats.Where(x => x.Id == seatNumber).FirstOrDefault().IsBooked = true;
-                    else
-                        return Problem("Błędnie wybrane miejsca!");
-                }
-                seance.SeatsJsonObject = JsonConvert.SerializeObject(seats);
-                var user = await _userManager.FindByNameAsync(User.Identity.Name);
-                Reservation reservation= new Reservation()
-                {
-                    Date=DateTime.Now,
-                    ApplicationUser=user,
-                    ApplicationUserId=user.Id,
-                    Seance=seance,
-                    SeanceId=seance.Id,
-                    SeatNumbers=reservationDto.SeatNumbers,
-                };
-                _context.Add(reservation);
 
+                var seats = JsonConvert.DeserializeObject<List<Seat>>(seance.SeatsJsonObject);
+                var selectedSeatObjects = seats.Where(s => selectedSeats.Contains(s.Id)).ToList();
+                if (selectedSeatObjects.Any(s => s.IsBooked))
+                {
+                    return Problem("Jedno lub kilka z wybranych miejsc jest już zarezerwowane!");
+                }
+
+                // Update the IsBooked status of the seats
+                foreach (var seat in selectedSeatObjects)
+                {
+                    seat.IsBooked = true;
+                }
+                // Serialize the updated seats back into the SeatsJsonObject
+                seance.SeatsJsonObject = JsonConvert.SerializeObject(seats);
+
+                // Create the Reservation
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                Reservation reservation = new Reservation()
+                {
+                    Date = DateTime.Now,
+                    ApplicationUser = user,
+                    ApplicationUserId = user.Id,
+                    Seance = seance,
+                    SeanceId = seance.Id,
+                    SeatNumbers = string.Join(",", selectedSeats),
+                };
+
+                _context.Add(reservation);
                 await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(IndexUser));
             }
 
             var user2 = await _userManager.FindByNameAsync(User.Identity.Name);
 
             ViewData["ApplicationUserId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "Id", user2.Id);
-            ViewData["SeanceId"] = new SelectList(_context.Seance, "Id", "Id", reservationDto.SeanceId);
-            return View(reservationDto);
+            ViewData["SeanceId"] = new SelectList(_context.Seance, "Id", "Id", seanceId);
+
+            // Load the list of Seats into the ViewBag again for redisplaying the form
+            var seance2 = _context.Seance
+                                  .FirstOrDefault(s => s.Id == seanceId);
+            var seats2 = JsonConvert.DeserializeObject<List<Seat>>(seance2.SeatsJsonObject);
+            ViewBag.AvailableSeats = seats2.Where(s => !s.IsBooked).ToList();
+
+            return View(seanceId);
         }
 
         // GET: Reservations/Edit/5

@@ -97,16 +97,16 @@ namespace Cinema.Migrations
                         {
                             Id = "02174cf0–9412–4cfe-afbf-59f706d72cf6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9d192b11-98df-40a6-a8ea-ab60cb82c4d3",
+                            ConcurrencyStamp = "e38189a3-2dcf-4060-945f-739dae972fa8",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             Firstname = "Adam",
                             Lastname = "Nowak",
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGh66aiQIikUCPNK6Y4gvj+pngBL404VB2MM+S7BN8A+mgeCobRMkuL2j08kpYdyqA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOsSDoJMd3LykIjTslUh4lMnJiHKQ5BhDy6hpFB0PF57SgOXIU6JoMIjkuQovurbUw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "bf13fd73-5bd9-433d-b000-2644292488b9",
+                            SecurityStamp = "b54a49cb-4fc6-4184-b008-de9c99a1c64c",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Cinema.Migrations
 {
-    public partial class init : Migration
+    public partial class Ini : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -246,7 +246,7 @@ namespace Cinema.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "Firstname", "Lastname", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "02174cf0–9412–4cfe-afbf-59f706d72cf6", 0, "9d192b11-98df-40a6-a8ea-ab60cb82c4d3", "admin@gmail.com", true, "Adam", "Nowak", false, null, null, "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEGh66aiQIikUCPNK6Y4gvj+pngBL404VB2MM+S7BN8A+mgeCobRMkuL2j08kpYdyqA==", null, false, "bf13fd73-5bd9-433d-b000-2644292488b9", false, "admin@gmail.com" });
+                values: new object[] { "02174cf0–9412–4cfe-afbf-59f706d72cf6", 0, "e38189a3-2dcf-4060-945f-739dae972fa8", "admin@gmail.com", true, "Adam", "Nowak", false, null, null, "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEOsSDoJMd3LykIjTslUh4lMnJiHKQ5BhDy6hpFB0PF57SgOXIU6JoMIjkuQovurbUw==", null, false, "b54a49cb-4fc6-4184-b008-de9c99a1c64c", false, "admin@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
