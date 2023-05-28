@@ -26,13 +26,21 @@ namespace Cinema.Controllers
         // GET: Reservations
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Reservation.Include(r => r.ApplicationUser).Include(r => r.Seance);
+            var applicationDbContext = _context.Reservation
+        .Include(r => r.ApplicationUser)
+        .Include(r => r.Seance)
+            .ThenInclude(s => s.Movie);
             return View(await applicationDbContext.ToListAsync());
+
         }
         public async Task<IActionResult> IndexUser()
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var applicationDbContext = _context.Reservation.Include(r => r.ApplicationUser).Include(r => r.Seance).Where(x => x.ApplicationUserId == user.Id);
+            var applicationDbContext = _context.Reservation
+                .Include(r => r.ApplicationUser)
+                .Include(r => r.Seance)
+                    .ThenInclude(s => s.Movie)
+                .Where(x => x.ApplicationUserId == user.Id);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -59,6 +67,8 @@ namespace Cinema.Controllers
         // GET: Reservations/Create
         public IActionResult Create(int? id)
         {
+            var seancesWithMovies = _context.Seance.Include(s => s.Movie).ToList();
+            ViewBag.Seances = new SelectList(seancesWithMovies, "Id", "Movie.Title");
             ViewData["ApplicationUserId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "Id");
             // Load the Seance and its associated Seats
             var seance = _context.Seance
