@@ -19,9 +19,8 @@ namespace Cinema.Controllers
 
         public IActionResult Index()
         {
-            return _context.News != null ?
-                           View(_context.News.ToList()) :
-                           Problem("Entity set 'ApplicationDbContext.News'  is null.");
+            var seances = _context.Seance.Include(s => s.Movie).ToList(); // Tutaj jest powiązanie z movie 
+    return View(seances);
         }
 
         public IActionResult Privacy()
