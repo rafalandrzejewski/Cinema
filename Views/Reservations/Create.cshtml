@@ -31,13 +31,13 @@
                             @:</div>
                             @:<div class="row">
                         }
-                        <div class="col-1">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="seat-@seat.Id" value="@seatCount" name="selectedSeats">
-                                <label class="form-check-label" for="seat-@seat.Id">@seatCount</label>
-                            </div>
+                    <div class="col-1">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="seat-@seat.Id" value="@seatCount" name="selectedSeats" @(seat.IsBooked ? "disabled" : "")>
+                            <label class="form-check-label" for="seat-@seat.Id">@seatCount</label>
                         </div>
-                        seatCount++;
+                    </div>
+                    seatCount++;
                     }
                 </div>
             </div>
