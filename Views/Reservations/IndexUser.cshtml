@@ -33,7 +33,7 @@
                 @Html.DisplayFor(modelItem => item.SeatNumbers)
             </td>
             <td>|
-                <a asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
+                <a asp-action="Delete" asp-route-id="@item.Id"><input type="button" value="Usuń" class="btn btn-danger" /></a>
             </td>
         </tr>
 }
