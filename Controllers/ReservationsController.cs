@@ -27,9 +27,9 @@ namespace Cinema.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Reservation
-        .Include(r => r.ApplicationUser)
-        .Include(r => r.Seance)
-            .ThenInclude(s => s.Movie);
+                .Include(r => r.ApplicationUser)
+                .Include(r => r.Seance)
+                .ThenInclude(s => s.Movie);
             return View(await applicationDbContext.ToListAsync());
 
         }
@@ -47,15 +47,17 @@ namespace Cinema.Controllers
         // GET: Reservations/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Reservation == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var reservation = await _context.Reservation
-                .Include(r => r.ApplicationUser)
                 .Include(r => r.Seance)
+                    .ThenInclude(s => s.Movie)
+                .Include(r => r.ApplicationUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (reservation == null)
             {
                 return NotFound();
