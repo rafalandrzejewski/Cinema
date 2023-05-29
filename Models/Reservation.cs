@@ -13,6 +13,7 @@ namespace Cinema.Models
         public string ApplicationUserId { get; set; }
         public ApplicationUser? ApplicationUser { get; set; }
         public string SeatNumbers { get; set; }
+        public List<Ticket> Tickets { get; set; }
 
     }
 }

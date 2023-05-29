@@ -31,15 +31,27 @@
                             @:</div>
                             @:<div class="row">
                         }
-                    <div class="col-1">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="seat-@seat.Id" value="@seatCount" name="selectedSeats" @(seat.IsBooked ? "disabled" : "")>
-                            <label class="form-check-label" for="seat-@seat.Id">@seatCount</label>
+                        <div class="col-1">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="seat-@seat.Id" value="@seatCount" name="selectedSeats" @(seat.IsBooked ? "disabled" : "")>
+                                <label class="form-check-label" for="seat-@seat.Id">@seatCount</label>
+                            </div>
                         </div>
-                    </div>
-                    seatCount++;
+                        seatCount++;
                     }
                 </div>
+            </div>
+            <div class="form-group">
+                <label for="normalTickets">Bilety normalne:</label>
+                <input type="number" id="normalTickets" name="normalTickets" min="0" class="form-control" value="0" oninput="calculateTotal()" />
+            </div>
+            <div class="form-group">
+                <label for="discountTickets">Bilety ulgowe:</label>
+                <input type="number" id="discountTickets" name="discountTickets" min="0" class="form-control" value="0" oninput="calculateTotal()" />
+            </div>
+            <div class="form-group">
+                <label for="totalPrice">Całkowita cena:</label>
+                <input type="text" id="totalPrice" name="totalPrice" class="form-control" disabled/>
             </div>
             <div class="form-group">
                 <input type="hidden" asp-for="SeatNumbers" id="seatNumbers" class="form-control" />
@@ -61,9 +73,26 @@
     }
 
     <script>
+        const normalTicketPrice = 25;
+        const discountTicketPrice = 18;
+
         function updateSeatNumbers() {
             let selectedSeats = Array.from(document.querySelectorAll('input[name="selectedSeats"]:checked')).map(input => parseInt(input.value));
             document.getElementById('seatNumbers').value = selectedSeats.join(',');
+
+            let normalTicketCount = parseInt(document.getElementById('normalTickets').value);
+            let discountTicketCount = parseInt(document.getElementById('discountTickets').value);
+            if(selectedSeats.length !== normalTicketCount + discountTicketCount){
+                alert("Liczba wybranych biletów nie pasuje do liczby wybranych miejsc!");
+                event.preventDefault();
+            }
+        }
+
+        function calculateTotal() {
+            let normalTicketCount = parseInt(document.getElementById('normalTickets').value);
+            let discountTicketCount = parseInt(document.getElementById('discountTickets').value);
+            let totalPrice = normalTicketPrice * normalTicketCount + discountTicketPrice * discountTicketCount;
+            document.getElementById('totalPrice').value = totalPrice + " zł";
         }
     </script>
 }
