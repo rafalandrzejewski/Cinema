@@ -50,6 +50,10 @@
                 <input type="number" id="discountTickets" name="discountTickets" min="0" class="form-control" value="0" oninput="calculateTotal()" />
             </div>
             <div class="form-group">
+                <label for="couponCode">Kupon rabatowy:</label>
+                <input type="text" id="couponCode" name="couponCode" class="form-control" oninput="calculateTotal()" />
+            </div>
+            <div class="form-group">
                 <label for="totalPrice">Całkowita cena:</label>
                 <input type="text" id="totalPrice" name="totalPrice" class="form-control" disabled/>
             </div>
@@ -75,6 +79,7 @@
     <script>
         const normalTicketPrice = 25;
         const discountTicketPrice = 18;
+        const discountCode = "programowanie";
 
         function updateSeatNumbers() {
             let selectedSeats = Array.from(document.querySelectorAll('input[name="selectedSeats"]:checked')).map(input => parseInt(input.value));
@@ -92,7 +97,13 @@
             let normalTicketCount = parseInt(document.getElementById('normalTickets').value);
             let discountTicketCount = parseInt(document.getElementById('discountTickets').value);
             let totalPrice = normalTicketPrice * normalTicketCount + discountTicketPrice * discountTicketCount;
-            document.getElementById('totalPrice').value = totalPrice + " zł";
+
+            let couponCode = document.getElementById('couponCode').value;
+            if(couponCode === discountCode) {
+                totalPrice *= 0.9;
+            }
+
+            document.getElementById('totalPrice').value = totalPrice.toFixed(2) + " zł";
         }
     </script>
 }
