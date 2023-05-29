@@ -26,17 +26,17 @@
                     }
                     @foreach (var seat in (List<Cinema.Models.Seat>)ViewBag.AvailableSeats)
                     {
-                        if((seatCount-1) % 10 == 0)
+                        if ((seatCount - 1) % 10 == 0)
                         {
                             @:</div>
                             @:<div class="row">
                         }
-                        <div class="col-1">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="seat-@seat.Id" value="@seatCount" name="selectedSeats" @(seat.IsBooked ? "disabled" : "")>
-                                <label class="form-check-label" for="seat-@seat.Id">@seatCount</label>
+                            <div class="col-1">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="seat-@seat.Id" value="@seatCount" name="selectedSeats" @(seat.IsBooked ? "disabled" : "")>
+                                    <label class="form-check-label" for="seat-@seat.Id">@seatCount</label>
+                                </div>
                             </div>
-                        </div>
                         seatCount++;
                     }
                 </div>
@@ -61,47 +61,46 @@
                 <input type="hidden" asp-for="SeatNumbers" id="seatNumbers" class="form-control" />
             </div>
             <div class="form-group pt-2">
-                <input type="submit" value="Dodaj" class="btn btn-danger" /> |
+                <input type="submit" value="Dodaj" class="btn btn-danger" onclick="updateSeatNumbers()" /> |
                 <a asp-action="Index"><input type="button" value="Wróć do listy" class="btn btn-danger" /></a>
             </div>
         </form>
     </div>
 </div>
 
-
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 
-    <script>
-        const normalTicketPrice = 25;
-        const discountTicketPrice = 18;
-        const discountCode = "programowanie";
+        <script>
+            const normalTicketPrice = 25;
+            const discountTicketPrice = 18;
+            const discountCode = "programowanie";
 
-        function updateSeatNumbers() {
-            let selectedSeats = Array.from(document.querySelectorAll('input[name="selectedSeats"]:checked')).map(input => parseInt(input.value));
-            document.getElementById('seatNumbers').value = selectedSeats.join(',');
+            function updateSeatNumbers() {
+                let selectedSeats = Array.from(document.querySelectorAll('input[name="selectedSeats"]:checked')).map(input => parseInt(input.value));
+                document.getElementById('seatNumbers').value = selectedSeats.join(',');
 
-            let normalTicketCount = parseInt(document.getElementById('normalTickets').value);
-            let discountTicketCount = parseInt(document.getElementById('discountTickets').value);
-            if(selectedSeats.length !== normalTicketCount + discountTicketCount){
-                alert("Liczba wybranych biletów nie pasuje do liczby wybranych miejsc!");
-                event.preventDefault();
-            }
-        }
-
-        function calculateTotal() {
-            let normalTicketCount = parseInt(document.getElementById('normalTickets').value);
-            let discountTicketCount = parseInt(document.getElementById('discountTickets').value);
-            let totalPrice = normalTicketPrice * normalTicketCount + discountTicketPrice * discountTicketCount;
-
-            let couponCode = document.getElementById('couponCode').value;
-            if(couponCode === discountCode) {
-                totalPrice *= 0.9;
+                let normalTicketCount = parseInt(document.getElementById('normalTickets').value);
+                let discountTicketCount = parseInt(document.getElementById('discountTickets').value);
+                if(selectedSeats.length !== normalTicketCount + discountTicketCount){
+                    alert("Liczba wybranych biletów nie pasuje do liczby wybranych miejsc!");
+                    event.preventDefault();
+                }
             }
 
-            document.getElementById('totalPrice').value = totalPrice.toFixed(2) + " zł";
-        }
-    </script>
+            function calculateTotal() {
+                let normalTicketCount = parseInt(document.getElementById('normalTickets').value);
+                let discountTicketCount = parseInt(document.getElementById('discountTickets').value);
+                let totalPrice = normalTicketPrice * normalTicketCount + discountTicketPrice * discountTicketCount;
+
+                let couponCode = document.getElementById('couponCode').value;
+                if(couponCode === discountCode) {
+                    totalPrice *= 0.9;
+                }
+
+                document.getElementById('totalPrice').value = totalPrice.toFixed(2) + " zł";
+            }
+        </script>
 }

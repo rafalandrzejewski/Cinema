@@ -12,6 +12,7 @@ namespace Cinema.Models
         public Seance? Seance { get; set; }
         public string ApplicationUserId { get; set; }
         public ApplicationUser? ApplicationUser { get; set; }
+        [Display(Name = "Numery miejsc:")]
         public string SeatNumbers { get; set; }
         public List<Ticket> Tickets { get; set; }
 

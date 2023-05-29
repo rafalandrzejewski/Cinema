@@ -18,26 +18,6 @@
                 <input asp-for="Date" class="form-control" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="MaxSeatCount" class="control-label"></label>
-                <input asp-for="MaxSeatCount" class="form-control" />
-                <span asp-validation-for="MaxSeatCount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FreeSeatCount" class="control-label"></label>
-                <input asp-for="FreeSeatCount" class="form-control" />
-                <span asp-validation-for="FreeSeatCount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SeatsJsonObject" class="control-label"></label>
-                <input asp-for="SeatsJsonObject" class="form-control" />
-                <span asp-validation-for="SeatsJsonObject" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MovieId" class="control-label"></label>
-                <select asp-for="MovieId" class="form-control" asp-items="ViewBag.MovieId"></select>
-                <span asp-validation-for="MovieId" class="text-danger"></span>
-            </div>
             <div class="form-group pt-2">
                 <input type="submit" value="Zapisz" class="btn btn-danger" /> |
                 <a asp-action="Index"><input type="button" value="Wróć do listy" class="btn btn-danger" /></a>

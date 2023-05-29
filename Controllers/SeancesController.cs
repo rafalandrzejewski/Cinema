@@ -100,8 +100,8 @@ namespace Cinema.Controllers
                 }
                 var seance = new Seance
                 {
-                    MovieId=movie.Id,
-                    Date= seanceDto.Date,
+                    MovieId = movie.Id,
+                    Date = seanceDto.Date,
                     MaxSeatCount = seanceDto.MaxSeatCount,
                     FreeSeatCount = seanceDto.MaxSeatCount,
                     SeatsJsonObject = JsonConvert.SerializeObject(seats)
@@ -136,17 +136,15 @@ namespace Cinema.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Date,MaxSeatCount,FreeSeatCount,SeatsJsonObject,MovieId")] Seance seance)
+        public async Task<IActionResult> Edit(int id, [Bind("Date")] SeanceEditDto seanceDto)
         {
-            if (id != seance.Id)
-            {
-                return NotFound();
-            }
+            var seance = _context.Seance.FirstOrDefault(x => x.Id == id);
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    seance.Date = seanceDto.Date;
                     _context.Update(seance);
                     await _context.SaveChangesAsync();
                 }

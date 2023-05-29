@@ -17,28 +17,16 @@
             @Html.DisplayFor(model => model.Date)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaxSeatCount)
+            Ilość wolnych miejsc:
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaxSeatCount)
+            @Html.DisplayFor(model => model.FreeSeatCount) / @Html.DisplayFor(model => model.MaxSeatCount)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FreeSeatCount)
+            @Html.DisplayNameFor(model => model.Movie.Title)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FreeSeatCount)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SeatsJsonObject)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SeatsJsonObject)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Movie)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Movie.Id)
+            @Html.DisplayFor(model => model.Movie.Title)
         </dd>
     </dl>
 </div>

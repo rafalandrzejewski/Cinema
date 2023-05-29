@@ -60,6 +60,7 @@ namespace Cinema.Controllers
         {
             if (ModelState.IsValid)
             {
+                news.Date=DateTime.Now;
                 _context.Add(news);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
