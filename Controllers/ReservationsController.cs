@@ -84,6 +84,8 @@ namespace Cinema.Controllers
             var seats = JsonConvert.DeserializeObject<List<Seat>>(seance.SeatsJsonObject);
             // Load the list of Seats into the ViewBag
             ViewBag.AvailableSeats = seats.ToList();
+            ViewBag.SeanceDate = seance.Date;
+            ViewBag.SeanceDate2 = new DateTimeOffset(seance.Date).ToUnixTimeMilliseconds();
             var reservation = new Reservation { SeanceId = id ?? default(int) };
             return View(reservation);
             return View(id);

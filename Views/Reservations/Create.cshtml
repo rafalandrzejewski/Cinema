@@ -5,9 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1> Stwórz</h1>
-
 <h4>Rezerwacja</h4>
+<p>Data seansu: @ViewBag.SeanceDate</p> <p id="cheapTuesday" style="display: none;">W tym dniu przypada Tani Wtorek! Otrzymujesz zniżkę 10 zł na bilety!</p>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -98,6 +97,14 @@
                 let couponCode = document.getElementById('couponCode').value;
                 if(couponCode === discountCode) {
                     totalPrice *= 0.9;
+                }
+                
+                let seanceDate = new Date('@ViewBag.SeanceDate2' * 1);
+                if(seanceDate.getUTCDay() === 2){ // 2 to wtorek w JavaScript
+                    totalPrice -= 10;
+                    document.getElementById('cheapTuesday').style.display = 'block';
+                } else {
+                    document.getElementById('cheapTuesday').style.display = 'none';
                 }
 
                 document.getElementById('totalPrice').value = totalPrice.toFixed(2) + " zł";
