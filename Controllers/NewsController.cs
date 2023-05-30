@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Cinema.Data;
 using Cinema.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Cinema.Controllers
 {
+    [Authorize]
     public class NewsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -28,6 +31,7 @@ namespace Cinema.Controllers
         }
 
         // GET: News/Details/5
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.News == null)
@@ -46,6 +50,7 @@ namespace Cinema.Controllers
         }
 
         // GET: News/Create
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult Create()
         {
             return View();
@@ -56,6 +61,7 @@ namespace Cinema.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Create([Bind("Id,Title,Description,Date")] News news)
         {
             if (ModelState.IsValid)
@@ -69,6 +75,7 @@ namespace Cinema.Controllers
         }
 
         // GET: News/Edit/5
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.News == null)
@@ -89,6 +96,7 @@ namespace Cinema.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Date")] News news)
         {
             if (id != news.Id)
@@ -120,6 +128,7 @@ namespace Cinema.Controllers
         }
 
         // GET: News/Delete/5
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.News == null)
@@ -140,6 +149,7 @@ namespace Cinema.Controllers
         // POST: News/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.News == null)

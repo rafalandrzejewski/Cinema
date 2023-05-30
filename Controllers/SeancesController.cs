@@ -9,9 +9,12 @@ using Cinema.Data;
 using Cinema.Models;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Cinema.Controllers
 {
+    [Authorize]
     public class SeancesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,6 +25,7 @@ namespace Cinema.Controllers
         }
 
         // GET: Seances
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Seance.Include(s => s.Movie);
@@ -73,6 +77,7 @@ namespace Cinema.Controllers
         }
 
         // GET: Seances/Create
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult Create()
         {
             ViewData["MovieId"] = new SelectList(_context.Movie, "Title", "Title");
@@ -84,6 +89,7 @@ namespace Cinema.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Create([Bind("Id,Date,MaxSeatCount,FreeSeatCount,SeatsJsonObject,MovieId")] SeanceDto seanceDto)
         {
             if (ModelState.IsValid)
@@ -115,6 +121,7 @@ namespace Cinema.Controllers
         }
 
         // GET: Seances/Edit/5
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Seance == null)
@@ -136,6 +143,7 @@ namespace Cinema.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Edit(int id, [Bind("Date")] SeanceEditDto seanceDto)
         {
             var seance = _context.Seance.FirstOrDefault(x => x.Id == id);
@@ -166,6 +174,7 @@ namespace Cinema.Controllers
         }
 
         // GET: Seances/Delete/5
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Seance == null)
@@ -187,6 +196,7 @@ namespace Cinema.Controllers
         // POST: Seances/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Seance == null)

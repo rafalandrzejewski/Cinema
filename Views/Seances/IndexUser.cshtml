@@ -37,7 +37,7 @@
                     @Html.DisplayFor(modelItem => item.Movie.Title)
                 </td>
                 <td>
-                        <a asp-controller="Reservations" asp-action="Create" asp-route-id="@item.Id">Zarezerwój</a>
+                            <a asp-controller="Reservations" asp-action="Create" asp-route-id="@item.Id"><input type="button" value="Zarezerwuj" class="btn btn-danger" /></a>
                 </td>
             </tr>
         }

@@ -9,9 +9,12 @@ using Cinema.Data;
 using Cinema.Models;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Cinema.Controllers
 {
+    [Authorize]
     public class ReservationsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -24,6 +27,7 @@ namespace Cinema.Controllers
         }
 
         // GET: Reservations
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Reservation
@@ -155,6 +159,7 @@ namespace Cinema.Controllers
         }
 
         // GET: Reservations/Edit/5
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Reservation == null)
@@ -177,6 +182,7 @@ namespace Cinema.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Date,SeanceId,ApplicationUserId,SeatNumbers")] Reservation reservation)
         {
             if (id != reservation.Id)

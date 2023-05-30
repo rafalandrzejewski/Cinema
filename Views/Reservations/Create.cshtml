@@ -61,7 +61,14 @@
             </div>
             <div class="form-group pt-2">
                 <input type="submit" value="Dodaj" class="btn btn-danger" onclick="updateSeatNumbers()" /> |
+                @if (User.IsInRole("SuperAdmin"))
+                {
                 <a asp-action="Index"><input type="button" value="Wróć do listy" class="btn btn-danger" /></a>
+                }
+                else
+                {
+                <a asp-action="IndexUser"><input type="button" value="Wróć do listy" class="btn btn-danger" /></a>
+                }
             </div>
         </form>
     </div>
