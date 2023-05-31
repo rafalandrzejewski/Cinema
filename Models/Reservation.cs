@@ -14,7 +14,7 @@ namespace Cinema.Models
         public ApplicationUser? ApplicationUser { get; set; }
         [Display(Name = "Numery miejsc:")]
         public string SeatNumbers { get; set; }
-        public List<Ticket> Tickets { get; set; }
+        public decimal TotalPrice { get; set; }
 
     }
 }

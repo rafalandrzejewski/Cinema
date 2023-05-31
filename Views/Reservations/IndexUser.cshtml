@@ -17,25 +17,32 @@
             <th>
                 @Html.DisplayNameFor(model => model.SeatNumbers)
             </th>
+            <th>
+                Całkowita cena:
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Seance.Movie.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Seance.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SeatNumbers)
-            </td>
-            <td>|
-                <a asp-action="Delete" asp-route-id="@item.Id"><input type="button" value="Usuń" class="btn btn-danger" /></a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Seance.Movie.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Seance.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SeatNumbers)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.Id"><input type="button" value="Usuń" class="btn btn-danger" /></a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

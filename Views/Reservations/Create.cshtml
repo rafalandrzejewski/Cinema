@@ -54,7 +54,7 @@
             </div>
             <div class="form-group">
                 <label for="totalPrice">Całkowita cena:</label>
-                <input type="text" id="totalPrice" name="totalPrice" class="form-control" disabled/>
+                <input type="number" id="totalPrice" name="totalPrice" class="form-control" step="0.01"/>
             </div>
             <div class="form-group">
                 <input type="hidden" asp-for="SeatNumbers" id="seatNumbers" class="form-control" />
@@ -114,7 +114,9 @@
                     document.getElementById('cheapTuesday').style.display = 'none';
                 }
 
-                document.getElementById('totalPrice').value = totalPrice.toFixed(2) + " zł";
+                document.getElementById('totalPrice').value = totalPrice.toFixed(2);
+                return totalPrice.toFixed(2);
+
             }
         </script>
 }

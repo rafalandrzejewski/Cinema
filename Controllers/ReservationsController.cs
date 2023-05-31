@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using System.Globalization;
 
 namespace Cinema.Controllers
 {
@@ -128,6 +129,16 @@ namespace Cinema.Controllers
 
                 // Create the Reservation
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+                string totalPriceStr = Request.Form["totalPrice"];
+                decimal totalPrice;
+
+                if (!decimal.TryParse(totalPriceStr, NumberStyles.Any, CultureInfo.CreateSpecificCulture("pl-PL"), out totalPrice))
+                {
+                    // logowanie błędu, obsługa błędów, lub domyślna wartość dla totalPrice
+                    totalPrice = 0; // przykładowa domyślna wartość
+                }
+
                 Reservation reservation = new Reservation()
                 {
                     Date = DateTime.Now,
@@ -136,6 +147,7 @@ namespace Cinema.Controllers
                     Seance = seance,
                     SeanceId = seance.Id,
                     SeatNumbers = string.Join(",", selectedSeats),
+                    TotalPrice = totalPrice,
                 };
 
                 _context.Add(reservation);
