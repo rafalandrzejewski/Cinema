@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cinema.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230531185917_Worked")]
-    partial class Worked
+    [Migration("20230531214045_Ini")]
+    partial class Ini
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -99,16 +99,16 @@ namespace Cinema.Migrations
                         {
                             Id = "02174cf0–9412–4cfe-afbf-59f706d72cf6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "82d4660e-3b6d-4203-be0a-06bef56aaefc",
+                            ConcurrencyStamp = "629bc446-ccb1-40a1-9675-450032e39ed6",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             Firstname = "Adam",
                             Lastname = "Nowak",
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAENU65jBPFNmix6+P3FjJJf4+urkK0P9lVN8yHMzGuoCagIA9YKoxQE1KQGwkGsVxjQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPH0Vrk+Y1vSbLixvEwXkweMW134IjE4HzSFdNIG/Iep0tpYwoQwX/m55YbQs9Cp5g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f5bbbc36-5764-4ba9-90f9-e07adc3d1b07",
+                            SecurityStamp = "76e3065b-559b-4ec0-9410-6c564bf0814f",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });
@@ -123,10 +123,6 @@ namespace Cinema.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PictureLink")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

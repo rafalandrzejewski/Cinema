@@ -6,8 +6,10 @@ namespace Cinema.Models
     public class Seance
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "Data jest wymagana.")]
         [Display(Name = "Data:")]
         public DateTime Date { get; set; }
+        [Required(ErrorMessage = "Ilość miejsc jest wymagana.")]
         [Display(Name = "Maksymalna ilość miejsc:")]
         public int MaxSeatCount { get; set; }
         public int FreeSeatCount { get; set;}

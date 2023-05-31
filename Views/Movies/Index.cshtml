@@ -21,9 +21,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Time)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PictureLink)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -38,9 +35,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Time)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PictureLink)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id"><input type="button" value="Edytuj" class="btn btn-danger" /></a> |
