@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cinema.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230531172629_init2")]
-    partial class init2
+    [Migration("20230531185917_Worked")]
+    partial class Worked
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -99,16 +99,16 @@ namespace Cinema.Migrations
                         {
                             Id = "02174cf0–9412–4cfe-afbf-59f706d72cf6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f64c6803-4761-4ad5-8f6c-685507fb07ef",
+                            ConcurrencyStamp = "82d4660e-3b6d-4203-be0a-06bef56aaefc",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             Firstname = "Adam",
                             Lastname = "Nowak",
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJwoM1Bm/9/wcaAv13LYtRlQd4Z/626cvxapNQiFYkaA7Z3V6vgNbMaD6WDEC1lLfA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENU65jBPFNmix6+P3FjJJf4+urkK0P9lVN8yHMzGuoCagIA9YKoxQE1KQGwkGsVxjQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0e261f50-1066-4add-a9a7-6f66c4964b40",
+                            SecurityStamp = "f5bbbc36-5764-4ba9-90f9-e07adc3d1b07",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });

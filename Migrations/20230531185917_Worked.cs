@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Cinema.Migrations
 {
-    public partial class init : Migration
+    public partial class Worked : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -220,7 +220,8 @@ namespace Cinema.Migrations
                     SeanceId = table.Column<int>(type: "int", nullable: false),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     SeatNumbers = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false)
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -247,7 +248,7 @@ namespace Cinema.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "Firstname", "Lastname", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "02174cf0–9412–4cfe-afbf-59f706d72cf6", 0, "46788bc7-24f2-4af1-b716-e21609a78655", "admin@gmail.com", true, "Adam", "Nowak", false, null, null, "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEKvDgmcTT5vy2Vn8r6hRKMrpLzVfOR3dbLEWvAKJIrZDQC8SM/+5ttFOpEKybK1h1g==", null, false, "07c6ddae-21aa-4ae6-b454-11cf0a2fbfc8", false, "admin@gmail.com" });
+                values: new object[] { "02174cf0–9412–4cfe-afbf-59f706d72cf6", 0, "82d4660e-3b6d-4203-be0a-06bef56aaefc", "admin@gmail.com", true, "Adam", "Nowak", false, null, null, "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAENU65jBPFNmix6+P3FjJJf4+urkK0P9lVN8yHMzGuoCagIA9YKoxQE1KQGwkGsVxjQ==", null, false, "f5bbbc36-5764-4ba9-90f9-e07adc3d1b07", false, "admin@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

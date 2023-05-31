@@ -50,7 +50,7 @@
             </div>
             <div class="form-group">
                 <label for="totalPrice">Całkowita cena:</label>
-                <input type="number" id="totalPrice" name="totalPrice" class="form-control" step="0.01"/>
+                <input type="number" id="totalPrice" name="totalPrice" class="form-control" step="0.01" readonly/>
             </div>
             <div class="form-group">
                 <input type="hidden" asp-for="SeatNumbers" id="seatNumbers" class="form-control" />
@@ -89,6 +89,12 @@
                 if(selectedSeats.length !== normalTicketCount + discountTicketCount){
                     alert("Liczba wybranych biletów nie pasuje do liczby wybranych miejsc!");
                     event.preventDefault();
+                } else if(selectedSeats.length == 0) {
+                    alert("Proszę wybrać przynajmniej jedno miejsce.");
+                    event.preventDefault();
+                } else if(normalTicketCount == 0 && discountTicketCount == 0) {
+                    alert("Proszę wybrać przynajmniej jeden bilet.");
+                    event.preventDefault();
                 }
             }
 
@@ -101,7 +107,7 @@
                 if(couponCode === discountCode) {
                     totalPrice *= 0.9;
                 }
-                
+        
                 let seanceDate = new Date('@ViewBag.SeanceDate2' * 1);
                 if(seanceDate.getUTCDay() === 2){ // 2 to wtorek w JavaScript
                     totalPrice -= 10;
@@ -112,7 +118,7 @@
 
                 document.getElementById('totalPrice').value = totalPrice.toFixed(2);
                 return totalPrice.toFixed(2);
-
             }
         </script>
+
 }
