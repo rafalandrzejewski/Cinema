@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cinema.Models
 {
@@ -14,7 +17,10 @@ namespace Cinema.Models
         public ApplicationUser? ApplicationUser { get; set; }
         [Display(Name = "Numery miejsc:")]
         public string SeatNumbers { get; set; }
+        [Precision(18, 2)]
         public decimal TotalPrice { get; set; }
+        [Display(Name = "Kod rezerwacji")]
+        public string Code { get; set; }
 
     }
 }

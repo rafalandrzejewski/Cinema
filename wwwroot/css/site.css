@@ -40,3 +40,17 @@ table, th, td {
 button{
     margin-top:5px;
 }
+.form-check {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form-check-input:checked {
+    background-color: var(--bs-danger);
+    border-color: var(--bs-danger);
+}
+td{
+    vertical-align:middle;
+}

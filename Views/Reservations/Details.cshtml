@@ -7,23 +7,22 @@
 <h1>Szczegóły</h1>
 
 <div>
-    <h4>Reservation</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Date)
+            Data utworzenia rezerwacji
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Date)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Seance)
+            Seans
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Seance.Id) - @Html.DisplayFor(model => model.Seance.Movie.Title)
+            @Html.DisplayFor(model => model.Seance.Date) - @Html.DisplayFor(model => model.Seance.Movie.Title)
         </dd>
         <dt class="col-sm-2">
-            Username:
+            Nazwa użytkownika:
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ApplicationUser.UserName)

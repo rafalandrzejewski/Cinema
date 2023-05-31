@@ -101,12 +101,12 @@ namespace Cinema.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int seanceId, List<int> selectedSeats)
+        public async Task<IActionResult> Create(int seanceId, [Bind("SeatNumbers")] List<int> selectedSeats)
         {
             if (ModelState.IsValid)
             {
-                var seance = _context.Seance
-                                     .FirstOrDefault(s => s.Id == seanceId);
+                var seance = _context.Seance.FirstOrDefault(s => s.Id == seanceId);
+                var reservations = _context.Reservation.ToList().Select(x=>x.Code);
                 if (seance == null)
                 {
                     return NotFound();
@@ -131,12 +131,11 @@ namespace Cinema.Controllers
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
                 string totalPriceStr = Request.Form["totalPrice"];
-                decimal totalPrice;
-
-                if (!decimal.TryParse(totalPriceStr, NumberStyles.Any, CultureInfo.CreateSpecificCulture("pl-PL"), out totalPrice))
+                var totalPrice = Decimal.Parse(totalPriceStr, CultureInfo.InvariantCulture);
+                var code = GenerateCode();
+                while(reservations.Contains(code))
                 {
-                    // logowanie błędu, obsługa błędów, lub domyślna wartość dla totalPrice
-                    totalPrice = 0; // przykładowa domyślna wartość
+                    code = GenerateCode();
                 }
 
                 Reservation reservation = new Reservation()
@@ -148,6 +147,7 @@ namespace Cinema.Controllers
                     SeanceId = seance.Id,
                     SeatNumbers = string.Join(",", selectedSeats),
                     TotalPrice = totalPrice,
+                    Code=code,
                 };
 
                 _context.Add(reservation);
@@ -238,12 +238,14 @@ namespace Cinema.Controllers
             var reservation = await _context.Reservation
                 .Include(r => r.ApplicationUser)
                 .Include(r => r.Seance)
+                .Include(r=>r.Seance.Movie)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (reservation == null)
             {
                 return NotFound();
             }
-
+            ViewData["ApplicationUserId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "Id", reservation.ApplicationUserId);
+            ViewData["SeanceId"] = new SelectList(_context.Seance, "Id", "Id", reservation.SeanceId);
             return View(reservation);
         }
 
@@ -291,5 +293,19 @@ namespace Cinema.Controllers
         {
             return (_context.Reservation?.Any(e => e.Id == id)).GetValueOrDefault();
         }
-    }
+
+        private string GenerateCode()
+        {
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var stringChars = new char[8];
+            var random = new Random();
+
+            for (int i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+
+            return new String(stringChars);
+        }
+}
 }

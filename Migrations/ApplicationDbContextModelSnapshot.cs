@@ -97,16 +97,16 @@ namespace Cinema.Migrations
                         {
                             Id = "02174cf0–9412–4cfe-afbf-59f706d72cf6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "07250c2d-8a3c-4fcc-b410-96ae4865e2ad",
+                            ConcurrencyStamp = "f64c6803-4761-4ad5-8f6c-685507fb07ef",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             Firstname = "Adam",
                             Lastname = "Nowak",
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJHIokxHNAOUcKF3vv6gRkj6UqSpmQG8p4jYp/ZPxsUuloJiDhZtP8Yc5AfP4wm1yA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJwoM1Bm/9/wcaAv13LYtRlQd4Z/626cvxapNQiFYkaA7Z3V6vgNbMaD6WDEC1lLfA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "15b0b6ac-9159-4b6d-9ce2-5d65c4b19651",
+                            SecurityStamp = "0e261f50-1066-4add-a9a7-6f66c4964b40",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });
@@ -176,6 +176,10 @@ namespace Cinema.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -185,6 +189,10 @@ namespace Cinema.Migrations
                     b.Property<string>("SeatNumbers")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -224,27 +232,6 @@ namespace Cinema.Migrations
                     b.HasIndex("MovieId");
 
                     b.ToTable("Seance");
-                });
-
-            modelBuilder.Entity("Cinema.Models.Ticket", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("ReservationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ReservationId");
-
-                    b.ToTable("Ticket");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -430,13 +417,6 @@ namespace Cinema.Migrations
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("Cinema.Models.Ticket", b =>
-                {
-                    b.HasOne("Cinema.Models.Reservation", null)
-                        .WithMany("Tickets")
-                        .HasForeignKey("ReservationId");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -486,11 +466,6 @@ namespace Cinema.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Cinema.Models.Reservation", b =>
-                {
-                    b.Navigation("Tickets");
                 });
 #pragma warning restore 612, 618
         }

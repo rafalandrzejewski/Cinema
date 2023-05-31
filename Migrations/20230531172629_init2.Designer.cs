@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cinema.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230526123526_Ini")]
-    partial class Ini
+    [Migration("20230531172629_init2")]
+    partial class init2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -99,16 +99,16 @@ namespace Cinema.Migrations
                         {
                             Id = "02174cf0–9412–4cfe-afbf-59f706d72cf6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e38189a3-2dcf-4060-945f-739dae972fa8",
+                            ConcurrencyStamp = "f64c6803-4761-4ad5-8f6c-685507fb07ef",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             Firstname = "Adam",
                             Lastname = "Nowak",
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOsSDoJMd3LykIjTslUh4lMnJiHKQ5BhDy6hpFB0PF57SgOXIU6JoMIjkuQovurbUw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJwoM1Bm/9/wcaAv13LYtRlQd4Z/626cvxapNQiFYkaA7Z3V6vgNbMaD6WDEC1lLfA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b54a49cb-4fc6-4184-b008-de9c99a1c64c",
+                            SecurityStamp = "0e261f50-1066-4add-a9a7-6f66c4964b40",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });
@@ -178,6 +178,10 @@ namespace Cinema.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -187,6 +191,10 @@ namespace Cinema.Migrations
                     b.Property<string>("SeatNumbers")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

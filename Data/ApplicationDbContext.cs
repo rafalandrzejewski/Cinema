@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Cinema.Models;
 using Microsoft.AspNetCore.Identity;
+using System.Reflection.Emit;
 
 namespace Cinema.Data
 {

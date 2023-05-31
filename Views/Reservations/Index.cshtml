@@ -15,6 +15,9 @@
                 Data seansu:
             </th>
             <th>
+                Kod rezerwacji:
+            </th>
+            <th>
                 Nazwa użytkownika:
             </th>
             <th>
@@ -32,6 +35,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Seance.Date)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Code)
+                        </td>
             <td>
                     @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
             </td>
